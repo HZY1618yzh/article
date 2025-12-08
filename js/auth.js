@@ -12,7 +12,7 @@ window.supabase = supabase.createClient(
 
 // 密码验证函数
 window.verifyPassword = function (password) {
-    if (password.length !== 25) return false;
+    if (password.length !== 26) return false;
     
     const mod = BigInt(1e9 + 7);
     
@@ -79,3 +79,4 @@ window.verifyPassword = function (password) {
 // 	return sum==89723934;
 
 // }
+
