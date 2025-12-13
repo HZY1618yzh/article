@@ -283,8 +283,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .article-content {
@@ -293,7 +298,9 @@
             color: #34495e;
         }
 
-        .article-content h1, .article-content h2, .article-content h3 {
+        .article-content h1,
+        .article-content h2,
+        .article-content h3 {
             margin-top: 1.5em;
             margin-bottom: 0.5em;
             color: #2c3e50;
@@ -338,20 +345,20 @@
             gap: 10px;
             margin-top: 20px;
         }
-        
+
         .login-modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
         }
-        
+
         .login-container {
             background: white;
             border-radius: 12px;
@@ -359,13 +366,13 @@
             width: 90%;
             max-width: 400px;
         }
-        
+
         .login-title {
             text-align: center;
             margin-bottom: 25px;
             color: #2c3e50;
         }
-        
+
         .login-input {
             width: 100%;
             padding: 12px;
@@ -374,7 +381,7 @@
             border-radius: 6px;
             font-size: 1rem;
         }
-        
+
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -386,11 +393,11 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
-        
+
         .login-btn:hover {
             background-color: #2980b9;
         }
-        
+
         .logout-btn {
             position: absolute;
             top: 20px;
@@ -402,7 +409,7 @@
             border-radius: 6px;
             cursor: pointer;
         }
-        
+
         .user-info {
             position: absolute;
             top: 20px;
@@ -411,20 +418,20 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .delete-confirm-modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
         }
-        
+
         .delete-confirm-container {
             background: white;
             border-radius: 12px;
@@ -433,23 +440,23 @@
             max-width: 400px;
             text-align: center;
         }
-        
+
         .delete-confirm-title {
             margin-bottom: 20px;
             color: #e74c3c;
         }
-        
+
         .delete-confirm-message {
             margin-bottom: 25px;
             color: #666;
         }
-        
+
         .delete-btn-group {
             display: flex;
             gap: 10px;
             justify-content: center;
         }
-        
+
         .delete-btn {
             padding: 10px 20px;
             border-radius: 6px;
@@ -457,21 +464,21 @@
             cursor: pointer;
             font-weight: 500;
         }
-        
+
         .delete-btn-danger {
             background-color: #e74c3c;
             color: white;
         }
-        
+
         .delete-btn-danger:hover {
             background-color: #c0392b;
         }
-        
+
         .delete-btn-cancel {
             background-color: #95a5a6;
             color: white;
         }
-        
+
         .delete-btn-cancel:hover {
             background-color: #7f8c8d;
         }
@@ -479,7 +486,7 @@
 </head>
 
 <body>
-    <div id="nav"></div>
+    <div id="nav">侧边栏</div>
     <main id="content" style="padding: 20px;"></main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@latest/dist/index.js"></script>
@@ -487,7 +494,7 @@
     <script>
         const SUPABASE_URL = 'https://hdhpftgjhvorrwtsdpgb.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkaHBmdGdqaHZvcnJ3dHNkcGdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNTM5NjMsImV4cCI6MjA4MDkyOTk2M30.CEuXyk7ENGWV-huR8Tfbbu_fm55057GnQyZ_PMamook';
-        
+
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let currentUser = null;
@@ -502,13 +509,38 @@
             }
             return id;
         }
-
         async function checkAuth() {
             try {
-                const { data: { session } } = await supabase.auth.getSession();
-                currentUser = session?.user || null;
-                console.log('当前用户状态:', currentUser);
+                console.log('开始检查登录状态...');
+                const savedToken = localStorage.getItem('supabase.auth.token');
+                const savedUser = localStorage.getItem('supabase.auth.user');
+
+                if (savedToken && savedUser) {
+                    console.log('从本地存储恢复用户:', JSON.parse(savedUser));
+                    currentUser = JSON.parse(savedUser);
+                }
+                const { data: { session }, error } = await supabase.auth.getSession();
+
+                if (error) {
+                    console.error('获取会话失败:', error);
+                } else if (session) {
+                    console.log('Supabase会话存在:', session.user);
+                    currentUser = session.user;
+                    localStorage.setItem('supabase.auth.token', JSON.stringify({
+                        access_token: session.access_token,
+                        refresh_token: session.refresh_token,
+                        expires_at: session.expires_at
+                    }));
+                    localStorage.setItem('supabase.auth.user', JSON.stringify(session.user));
+                } else {
+                    console.log('Supabase会话不存在');
+                    localStorage.removeItem('supabase.auth.token');
+                    localStorage.removeItem('supabase.auth.user');
+                    currentUser = null;
+                }
+                console.log('用户状态:', currentUser);
                 return session;
+
             } catch (error) {
                 console.error('检查登录状态失败:', error);
                 return null;
@@ -527,48 +559,55 @@
                     <button id="login-cancel" class="btn" style="width: 100%; margin-top: 10px; background-color: #95a5a6; color: white;">取消</button>
                 </div>
             `;
-            
+
             document.body.appendChild(overlay);
-            
+
             document.getElementById('login-submit').addEventListener('click', async () => {
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
-                
+
                 console.log('尝试登录:', email);
-                
+
                 const { data, error } = await supabase.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
-                
+
                 if (error) {
                     console.error('登录失败:', error);
                     alert('登录失败: ' + error.message);
                 } else {
                     console.log('登录成功:', data);
+                    if (data.session) {
+                        localStorage.setItem('supabase.auth.token', JSON.stringify({
+                            access_token: data.session.access_token,
+                            refresh_token: data.session.refresh_token,
+                            expires_at: data.session.expires_at
+                        }));
+                        localStorage.setItem('supabase.auth.user', JSON.stringify(data.user));
+                    }
                     alert('登录成功！');
                     overlay.remove();
-                    await checkAuth();
-                    router.handleRoute();
+                    location.reload();
                 }
             });
-            
+
             document.getElementById('login-cancel').addEventListener('click', () => {
                 overlay.remove();
             });
-            
+
             document.getElementById('login-password').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     document.getElementById('login-submit').click();
                 }
             });
-            
+
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
                     overlay.remove();
                 }
             });
-            
+
             setTimeout(() => {
                 document.getElementById('login-password').focus();
             }, 100);
@@ -578,9 +617,11 @@
             try {
                 const { error } = await supabase.auth.signOut();
                 if (error) throw error;
+                localStorage.removeItem('supabase.auth.token');
+                localStorage.removeItem('supabase.auth.user');
                 currentUser = null;
                 alert('已登出');
-                router.handleRoute();
+                location.reload();
             } catch (error) {
                 console.error('登出失败:', error);
                 alert('登出失败: ' + error.message);
@@ -590,7 +631,7 @@
         function showAdminUI() {
             const existingInfo = document.querySelector('.user-info');
             if (existingInfo) existingInfo.remove();
-            
+
             const userInfo = document.createElement('div');
             userInfo.className = 'user-info';
             userInfo.innerHTML = `
@@ -606,7 +647,7 @@
 
         function showDeleteConfirm(article) {
             articleToDelete = article;
-            
+
             const overlay = document.createElement('div');
             overlay.className = 'delete-confirm-modal';
             overlay.innerHTML = `
@@ -628,24 +669,24 @@
                     </div>
                 </div>
             `;
-            
+
             document.body.appendChild(overlay);
-            
+
             document.getElementById('delete-confirm-btn').addEventListener('click', async () => {
                 await deleteArticle(article.id);
                 overlay.remove();
             });
-            
+
             document.getElementById('delete-cancel-btn').addEventListener('click', () => {
                 overlay.remove();
             });
-            
+
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
                     overlay.remove();
                 }
             });
-            
+
             overlay.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     overlay.remove();
@@ -659,26 +700,26 @@
                 showLoginPopup();
                 return;
             }
-            
+
             try {
                 console.log('开始删除文章:', articleId);
-                
+
                 const { error } = await supabase
                     .from('article')
                     .delete()
                     .eq('id', articleId);
-                
+
                 if (error) {
                     console.error('删除失败:', error);
                     alert('删除失败: ' + error.message);
                     return;
                 }
-                
+
                 console.log('文章删除成功');
                 alert('文章删除成功！');
-                
+
                 router.handleRoute();
-                
+
             } catch (error) {
                 console.error('删除异常:', error);
                 alert('删除异常: ' + error.message);
@@ -692,46 +733,42 @@
                 '/article/:id': showArticleDetail,
                 '/article/:id/edit': showEditArticle
             },
-            
+
             async init() {
                 window.addEventListener('popstate', this.handleRoute.bind(this));
                 await this.handleRoute();
-                
-                const session = await checkAuth();
-                if (session) {
-                    showAdminUI();
-                }
             },
-            
+
             async handleRoute() {
                 let path = window.location.pathname;
                 let params = {};
-                
+
                 console.log('路由跳转:', path);
-                
+                console.log('当前用户状态:', currentUser);
+
                 if (path.endsWith('/')) {
                     path = path.slice(0, -1);
                 }
-                
+
                 for (const route in this.routes) {
                     const routePattern = route.replace(/:\w+/g, '([^/]+)');
                     const regex = new RegExp(`^${routePattern}$`);
                     const match = path.match(regex);
-                    
+
                     if (match) {
                         const paramNames = [...route.matchAll(/:(\w+)/g)].map(m => m[1]);
                         paramNames.forEach((name, index) => {
                             params[name] = match[index + 1];
                         });
-                        
+
                         this.routes[route](params);
                         return;
                     }
                 }
-                
+
                 showArticleList();
             },
-            
+
             navigate(path) {
                 console.log('导航到:', path);
                 history.pushState(null, '', path);
@@ -742,18 +779,18 @@
         async function showArticleList() {
             console.log('显示文章列表');
             document.title = '文章列表 - HZY';
-            
+
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="article-header">
                     <h1>文章列表</h1>
-                    ${currentUser ? 
-                        '<button class="btn btn-success" onclick="router.navigate(\'/article/new\')">' +
-                            '<i class="fas fa-plus"></i> 新建文章' +
-                        '</button>' : 
-                        '<button class="btn btn-success" onclick="showLoginPopup()">' +
-                            '<i class="fas fa-lock"></i> 管理员登录' +
-                        '</button>'}
+                    ${currentUser ?
+                    '<button class="btn btn-success" onclick="router.navigate(\'/article/new\')">' +
+                    '<i class="fas fa-plus"></i> 新建文章' +
+                    '</button>' :
+                    '<button class="btn btn-success" onclick="showLoginPopup()">' +
+                    '<i class="fas fa-lock"></i> 管理员登录' +
+                    '</button>'}
                     <button class="btn btn-primary" onclick="testDatabase()" style="margin-left: 10px;">
                         <i class="fas fa-database"></i> 测试数据库
                     </button>
@@ -763,36 +800,36 @@
                     <p>加载中...</p>
                 </div>
             `;
-            
+
             try {
                 console.log('开始查询文章数据...');
-                
+
                 const { data: articles, error, count } = await supabase
                     .from('article')
                     .select('*', { count: 'exact' })
                     .order('created_at', { ascending: false });
-                
+
                 console.log('查询结果:', { articles, error, count });
-                
+
                 if (error) {
                     console.error('查询失败:', error);
                     throw error;
                 }
-                
+
                 console.log('找到文章数量:', articles?.length || 0);
-                
+
                 if (!articles || articles.length === 0) {
                     console.log('没有文章，显示空状态');
                     content.innerHTML = `
                         <div class="article-header">
                             <h1>文章列表</h1>
-                            ${currentUser ? 
-                                '<button class="btn btn-success" onclick="router.navigate(\'/article/new\')">' +
-                                    '<i class="fas fa-plus"></i> 新建文章' +
-                                '</button>' : 
-                                '<button class="btn btn-success" onclick="showLoginPopup()">' +
-                                    '<i class="fas fa-lock"></i> 管理员登录' +
-                                '</button>'}
+                            ${currentUser ?
+                            '<button class="btn btn-success" onclick="router.navigate(\'/article/new\')">' +
+                            '<i class="fas fa-plus"></i> 新建文章' +
+                            '</button>' :
+                            '<button class="btn btn-success" onclick="showLoginPopup()">' +
+                            '<i class="fas fa-lock"></i> 管理员登录' +
+                            '</button>'}
                             <button class="btn btn-primary" onclick="testDatabase()" style="margin-left: 10px;">
                                 <i class="fas fa-database"></i> 测试数据库
                             </button>
@@ -810,9 +847,9 @@
                     `;
                     return;
                 }
-                
+
                 console.log('开始渲染文章...');
-                
+
                 const articlesHTML = articles.map(article => {
                     return `
                         <div class="article-card">
@@ -839,29 +876,29 @@
                         </div>
                     `;
                 }).join('');
-                
+
                 console.log('HTML生成完成，开始渲染');
-                
+
                 document.getElementById('articles-container').outerHTML = `
                     <div id="articles-container">
                         ${articlesHTML}
                     </div>
                 `;
-                
+
                 console.log('文章列表渲染完成');
-                
+
             } catch (error) {
                 console.error('加载文章失败:', error);
                 content.innerHTML = `
                     <div class="article-header">
                         <h1>文章列表</h1>
-                        ${currentUser ? 
-                            '<button class="btn btn-success" onclick="router.navigate(\'/article/new\')">' +
-                                '<i class="fas fa-plus"></i> 新建文章' +
-                            '</button>' : 
-                            '<button class="btn btn-success" onclick="showLoginPopup()">' +
-                                '<i class="fas fa-lock"></i> 管理员登录' +
-                            '</button>'}
+                        ${currentUser ?
+                        '<button class="btn btn-success" onclick="router.navigate(\'/article/new\')">' +
+                        '<i class="fas fa-plus"></i> 新建文章' +
+                        '</button>' :
+                        '<button class="btn btn-success" onclick="showLoginPopup()">' +
+                        '<i class="fas fa-lock"></i> 管理员登录' +
+                        '</button>'}
                         <button class="btn btn-primary" onclick="testDatabase()" style="margin-left: 10px;">
                             <i class="fas fa-database"></i> 测试数据库
                         </button>
@@ -882,7 +919,7 @@
         async function showArticleDetail(params) {
             console.log('显示文章详情:', params.id);
             document.title = '文章详情 - HZY';
-            
+
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="loading">
@@ -890,16 +927,16 @@
                     <p>加载中...</p>
                 </div>
             `;
-            
+
             try {
                 const { data: article, error } = await supabase
                     .from('article')
                     .select('*')
                     .eq('id', params.id)
                     .single();
-                
+
                 if (error) throw error;
-                
+
                 content.innerHTML = `
                     <div class="article-header">
                         <h1 class="article-title-full">${escapeHtml(article.title)}</h1>
@@ -947,9 +984,9 @@
                 showLoginPopup();
                 return;
             }
-            
+
             document.title = '新建文章 - HZY';
-            
+
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="article-header">
@@ -974,7 +1011,7 @@
                     </div>
                 </div>
             `;
-            
+
             initEditor();
         }
 
@@ -984,9 +1021,9 @@
                 showLoginPopup();
                 return;
             }
-            
+
             document.title = '编辑文章 - HZY';
-            
+
             const content = document.getElementById('content');
             content.innerHTML = `
                 <div class="loading">
@@ -994,16 +1031,16 @@
                     <p>加载中...</p>
                 </div>
             `;
-            
+
             try {
                 const { data: article, error } = await supabase
                     .from('article')
                     .select('*')
                     .eq('id', params.id)
                     .single();
-                
+
                 if (error) throw error;
-                
+
                 content.innerHTML = `
                     <div class="article-header">
                         <h1>编辑文章</h1>
@@ -1033,7 +1070,7 @@
                         </div>
                     </div>
                 `;
-                
+
                 initEditor(article.content);
             } catch (error) {
                 console.error('加载文章失败:', error);
@@ -1130,25 +1167,25 @@
                 showLoginPopup();
                 return;
             }
-            
+
             const title = document.getElementById('article-title').value.trim();
             const content = editorInstance.getHtml();
-            
+
             if (!title) {
                 alert('请输入文章标题');
                 return;
             }
-            
+
             if (!content || content === '<p><br></p>') {
                 alert('请输入文章内容');
                 return;
             }
-            
+
             const articleId = generateId();
-            
+
             try {
                 console.log('开始保存文章:', { id: articleId, title });
-                
+
                 const { error } = await supabase
                     .from('article')
                     .insert({
@@ -1157,12 +1194,12 @@
                         content: content,
                         created_at: new Date().toISOString()
                     });
-                
+
                 if (error) {
                     console.error('保存失败:', error);
                     throw error;
                 }
-                
+
                 alert('文章创建成功！');
                 router.navigate(`/article/${articleId}`);
             } catch (error) {
@@ -1177,20 +1214,20 @@
                 showLoginPopup();
                 return;
             }
-            
+
             const title = document.getElementById('article-title').value.trim();
             const content = editorInstance.getHtml();
-            
+
             if (!title) {
                 alert('请输入文章标题');
                 return;
             }
-            
+
             if (!content || content === '<p><br></p>') {
                 alert('请输入文章内容');
                 return;
             }
-            
+
             try {
                 const { error } = await supabase
                     .from('article')
@@ -1200,9 +1237,9 @@
                         updated_at: new Date().toISOString()
                     })
                     .eq('id', articleId);
-                
+
                 if (error) throw error;
-                
+
                 alert('文章更新成功！');
                 router.navigate(`/article/${articleId}`);
             } catch (error) {
@@ -1214,22 +1251,22 @@
         async function testDatabase() {
             try {
                 console.log('开始测试数据库...');
-                
+
                 const { data, error } = await supabase
                     .from('article')
                     .select('count')
                     .limit(1);
-                
+
                 if (error) {
                     console.error('数据库测试失败:', error);
                     alert('数据库连接失败: ' + error.message);
                 } else {
                     console.log('数据库测试成功:', data);
-                    
+
                     const { count, error: countError } = await supabase
                         .from('article')
                         .select('*', { count: 'exact', head: true });
-                    
+
                     if (countError) {
                         alert('数据库连接成功！无法获取文章数量');
                     } else {
@@ -1304,8 +1341,12 @@
         document.addEventListener('DOMContentLoaded', async function () {
             console.log('页面加载完成，开始初始化...');
             initSidebar();
+            await checkAuth();
             await router.init();
-            
+            if (currentUser) {
+                showAdminUI();
+            }
+
             const wait = (islod, chyt) => {
                 const interval = setInterval(() => {
                     if (islod()) {
@@ -1314,7 +1355,7 @@
                     }
                 }, 100);
             };
-            
+
             wait(
                 () => document.readyState === 'complete',
                 '文章-HZY'
@@ -1322,5 +1363,5 @@
         });
     </script>
 </body>
-</html>
 
+</html>
