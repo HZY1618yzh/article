@@ -1119,7 +1119,7 @@
             if (!container) return;
 
             if (typeof marked === 'undefined') {
-                loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', function () {
+                loadScript('https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.min.js', function () {
                     loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js', function () {
                         loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js', function () {
                             renderContent(markdown, container);
@@ -1135,8 +1135,7 @@
             const renderer = new marked.Renderer();
             const originalCodeRenderer = renderer.code;
 
-            renderer.code = async (code, language) => {
-                const codeText = await code;
+            renderer.code = function (code, language) {
                 if (language !== null) {
                     const escapedCode = escapeHtml(code);
                     return '<pre style="position:relative;background:#fafafa;border:1px solid #ddd;padding:16px;margin:16px 0;border-radius:6px;overflow-x:auto;font-family:\'Courier New\',monospace;"><button style="position:absolute;top:8px;right:8px;background:#fafafa;color:#fafafa;border:none;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;line-height:0;height:24px;box-sizing:border-box;transition:all 0.2s ease;" onmouseover="this.style.background=\'#ddd\';this.style.color=\'#555\';" onmouseout="this.style.background=\'#fafafa\';this.style.color=\'#fafafa\';" onclick="const code=this.nextElementSibling.textContent;const textarea=document.createElement(\'textarea\');textarea.value=code;document.body.appendChild(textarea);textarea.select();document.execCommand(\'copy\');document.body.removeChild(textarea);this.innerHTML=\'<i class=&quot;fas fa-check&quot;></i>\';setTimeout(()=>{this.innerHTML=\'<i class=&quot;fas fa-copy&quot;></i>\'},2000)"><i class="fas fa-copy"></i></button><code style="display:block;padding-right:50px;">' + escapedCode + '</code></pre>';
