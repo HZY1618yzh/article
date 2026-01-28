@@ -230,6 +230,14 @@
             margin-bottom: 1em;
         }
 
+        .article-content code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+
         .article-content blockquote {
             border-left: 4px solid #3498db;
             padding-left: 15px;
@@ -1116,15 +1124,10 @@
         function renderMarkdownAndLaTeX(markdown, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            
-            console.log('开始渲染');
-            if (typeof marked === 'undefined') {
 
-            console.log('开始渲染1');
-                loadScript('https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.min.js', function () {
-            console.log('开始1');
+            if (typeof marked === 'undefined') {
+                loadScript('https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js', function () {
                     loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js', function () {
-            console.log('开始2');
                         loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js', function () {
                             renderContent(markdown, container);
                         });
@@ -1136,8 +1139,6 @@
         }
 
         function renderContent(markdown, container) {
-            
-            console.log('开始');
             const renderer = new marked.Renderer();
             const originalCodeRenderer = renderer.code;
 
@@ -1145,13 +1146,13 @@
                 if (language !== null) {
                     const escapedCode = escapeHtml(code);
                     const languageClass = language ? `language-${language}` : '';
-                    return '<pre style="position:relative;background:#fafafa;border:1px solid #ddd;padding:16px;margin:16px 0;border-radius:6px;overflow-x:auto;font-family:\'Courier New\',monospace;"><button style="position:absolute;top:8px;right:8px;background:#fafafa;color:#fafafa;border:none;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;line-height:0;height:24px;box-sizing:border-box;transition:all 0.2s ease;" onmouseover="this.style.background=\'#ddd\';this.style.color=\'#555\';" onmouseout="this.style.background=\'#fafafa\';this.style.color=\'#fafafa\';" onclick="const code=this.nextElementSibling.textContent;const textarea=document.createElement(\'textarea\');textarea.value=code;document.body.appendChild(textarea);textarea.select();document.execCommand(\'copy\');document.body.removeChild(textarea);this.innerHTML=\'<i class=&quot;fas fa-check&quot;></i>\';setTimeout(()=>{this.innerHTML=\'<i class=&quot;fas fa-copy&quot;></i>\'},2000)"><i class="fas fa-copy"></i></button><code class="'+languageClass+'" style="display:block;padding-right:50px;">' + escapedCode + '</code></pre>';
+                    return '<pre style="position:relative;background:#fafafa;border:1px solid #ddd;padding:16px;margin:16px 0;border-radius:6px;overflow-x:auto;font-family:\'Courier New\',monospace;"><button style="position:absolute;top:8px;right:8px;background:#fafafa;color:#fafafa;border:none;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;line-height:0;height:24px;box-sizing:border-box;transition:all 0.2s ease;" onmouseover="this.style.background=\'#ddd\';this.style.color=\'#555\';" onmouseout="this.style.background=\'#fafafa\';this.style.color=\'#fafafa\';" onclick="const code=this.nextElementSibling.textContent;const textarea=document.createElement(\'textarea\');textarea.value=code;document.body.appendChild(textarea);textarea.select();document.execCommand(\'copy\');document.body.removeChild(textarea);this.innerHTML=\'<i class=&quot;fas fa-check&quot;></i>\';setTimeout(()=>{this.innerHTML=\'<i class=&quot;fas fa-copy&quot;></i>\'},2000)"><i class="fas fa-copy"></i></button><code class="' + languageClass + '" style="display:block;padding-right:50px;">' + escapedCode + '</code></pre>';
                 }
                 return '<code>' + escapeHtml(code) + '</code>';
             };
-            console.log('开始渲染Markdown');
-            const html = marked(markdown, { renderer: renderer, async: false });
+            const html = marked.parse(markdown, { renderer: renderer });
             container.innerHTML = html;
+            
             if (typeof hljs !== 'undefined') {
                 setTimeout(() => {
                     container.querySelectorAll('pre code').forEach((block) => {
@@ -1164,6 +1165,8 @@
                     delimiters: [
                         { left: '$$', right: '$$', display: true },
                         { left: '$', right: '$', display: false },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '\\[', right: '\\]', display: true }
                     ],
                     throwOnError: false
                 });
