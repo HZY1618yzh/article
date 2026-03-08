@@ -621,6 +621,261 @@
             outline: none;
             border-color: #3498db;
         }
+        /* ========== Amazing Luogu 扩展样式 ========== */
+
+        /* 对齐样式 */
+        .align-left {
+            text-align: left !important
+        }
+
+        .align-center {
+            text-align: center !important
+        }
+
+        .align-right {
+            text-align: right !important
+        }
+
+        /* 题词样式 */
+        .epigraph {
+            width: 40%;
+            margin-left: 60%;
+            margin: 2em 40px;
+            padding: 1em 1.5em;
+            background: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #495057;
+        }
+
+        .epigraph > :last-child {
+            margin-top: 0.5em;
+            border-top: 1px solid #888;
+            text-align: right;
+            font-style: normal;
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        /* 折叠块增强样式 */
+        .foldable {
+            padding: 0;
+            margin: 1.5em 0;
+            border-left-width: 5px;
+            border-left-style: solid;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #e1e4e8;
+        }
+
+        .foldable.info {
+            border-left-color: rgb(52, 152, 219)
+        }
+
+        .foldable.warning {
+            border-left-color: rgb(255, 193, 22)
+        }
+
+        .foldable.success {
+            border-left-color: rgb(82, 196, 26)
+        }
+
+        .foldable.error {
+            border-left-color: rgb(231, 76, 60)
+        }
+
+        .foldable.bug {
+            border-left-color: rgb(231, 76, 60)
+        }
+
+        .foldable.flask {
+            border-left-color: rgb(155, 89, 182)
+        }
+
+        details.info > summary {
+            color: rgb(52, 152, 219)
+        }
+
+        details.warning > summary {
+            color: rgb(255, 193, 22)
+        }
+
+        details.success > summary {
+            color: rgb(82, 196, 26)
+        }
+
+        details.error > summary {
+            color: rgb(231, 76, 60)
+        }
+
+        details.bug > summary {
+            color: rgb(231, 76, 60)
+        }
+
+        details.flask > summary {
+            color: rgb(155, 89, 182)
+        }
+
+        /* 折叠块图标样式 */
+        .foldable summary {
+            list-style: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: 0;
+            margin: 0;
+            position: relative;
+            padding: 12px 16px 12px 40px;
+            font-weight: 600;
+            background: #f6f8fa;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .foldable summary:hover {
+            background: #f0f3f5;
+        }
+
+        .foldable[open] summary {
+            border-bottom: 1px solid #e1e4e8;
+        }
+
+        .foldable summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* 折叠块图标 - 左侧图标 */
+        .foldable summary::before {
+            content: "";
+            background-color: currentcolor;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+        }
+
+        details.info > summary::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>')
+        }
+
+        details.success > summary::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>')
+        }
+
+        details.warning > summary::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>')
+        }
+
+        details.error > summary::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>')
+        }
+
+        details.bug > summary::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0c53 0 96 43 96 96l0 3.6c0 15.7-12.7 28.4-28.4 28.4l-135.1 0c-15.7 0-28.4-12.7-28.4-28.4l0-3.6c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4l112 0c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5l64.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6L272 240c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 239.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64.3 0c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0c53 0 96 43 96 96l0 3.6c0 15.7-12.7 28.4-28.4 28.4l-135.1 0c-15.7 0-28.4-12.7-28.4-28.4l0-3.6c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4l112 0c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5l64.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6L272 240c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 239.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64.3 0c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"/></svg>')
+        }
+
+        details.flask > summary::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z"/></svg>')
+        }
+
+        /* 展开/折叠箭头 */
+        .foldable summary::after {
+            content: "";
+            background-color: currentcolor;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 512'><path d='M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z'/></svg>");
+            transition: transform 0.2s ease;
+        }
+
+        .foldable[open] > summary::after {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* 暗色模式支持 */
+        @media (prefers-color-scheme: dark) {
+            .epigraph {
+                background: #2d2d2d;
+                border-left-color: #6c757d;
+                color: #e0e0e0;
+            }
+            
+            .epigraph > :last-child {
+                color: #b0b0b0;
+            }
+            
+            .foldable {
+                background: #1e1e1e;
+                border-color: #404040;
+            }
+            
+            .foldable summary {
+                background: #2d2d2d;
+                color: #e0e0e0;
+            }
+            
+            .foldable summary:hover {
+                background: #353535;
+            }
+            
+            .foldable[open] summary {
+                border-bottom-color: #404040;
+            }
+            
+            details.info > summary {
+                background: #1a3f4f;
+                color: #8fc9ff;
+            }
+            
+            details.warning > summary {
+                background: #4a3f1a;
+                color: #ffd966;
+            }
+            
+            details.success > summary {
+                background: #1a3f1a;
+                color: #8fcf8f;
+            }
+            
+            details.error > summary {
+                background: #4f1a1a;
+                color: #ff8f8f;
+            }
+            
+            details.bug > summary {
+                background: #2d1a3f;
+                color: #c08fff;
+            }
+            
+            details.flask > summary {
+                background: #1a2a4f;
+                color: #8fb0ff;
+            }
+        }
     </style>
 </head>
 
@@ -1324,8 +1579,77 @@
                 renderContent(markdown, container);
             }
         }
-
+        
+        const customExtensions = [
+            {
+                name: 'alignBlock',
+                level: 'block',
+                start(src) { return src.match(/^:::\s*align\s*\{([^}]+)\}/)?.index; },
+                tokenizer(src, tokens) {
+                    const match = src.match(/^:::\s*align\s*\{([^}]+)\}([\s\S]*?)\n:::/);
+                    if (match) {
+                        return {
+                            type: 'alignBlock',
+                            raw: match[0],
+                            align: match[1].trim(),
+                            content: match[2].trim()
+                        };
+                    }
+                },
+                renderer(token) {
+                    return `<div class="align-${token.align}">${marked.parse(token.content)}</div>`;
+                }
+            },
+            {
+                name: 'epigraph',
+                level: 'block',
+                start(src) { return src.match(/^:::\s*epigraph(\[([^\]]+)\])?\s*:::/)?.index; },
+                tokenizer(src, tokens) {
+                    const match = src.match(/^:::\s*epigraph(\[([^\]]+)\])?\s*([\s\S]*?)\s*:::/);
+                    if (match) {
+                        return {
+                            type: 'epigraph',
+                            raw: match[0],
+                            author: match[2] || '',
+                            content: match[3].trim()
+                        };
+                    }
+                },
+                renderer(token) {
+                    const authorPart = `<p>— ${token.author ? token.author : 'unknown author'}</p>`;
+                    return `<div class="epigraph">${marked.parse(token.content)}${authorPart}</div>`;
+                }
+            },
+            {
+                name: 'foldable',
+                level: 'block',
+                start(src) { return src.match(/^:{3,}/)?.index; },
+                tokenizer(src, tokens) {
+                    const match = src.match(/^(:{3,})\s*(\w+)?(\[([^\]]+)\])?(\s*\{([^}]+)\})?\s*([\s\S]*?)\s*\1/);
+                    if (match && (match[2] === 'info' || match[2] === 'warning' || match[2] === 'success' || match[2] === 'error' || match[2] === 'bug' || match[2] === 'flask')) {
+                        return {
+                            type: 'foldable',
+                            raw: match[0],
+                            foldType: match[2] || 'info',
+                            title: match[4] || '',
+                            options: match[6] || '',
+                            content: match[7].trim()
+                        };
+                    }
+                },
+                renderer(token) {
+                    const isOpen = token.options.includes('open');
+                    return `
+                        <details class="foldable ${token.foldType}" ${isOpen ? 'open' : ''}>
+                            <summary>${token.title || '点击展开'}</summary>
+                            ${marked.parse(token.content)}
+                        </details>
+                    `;
+                }
+            }
+        ];
         function renderContent(markdown, container) {
+            marked.use({ extensions: customExtensions });
             const renderer = new marked.Renderer();
             const originalCodeRenderer = renderer.code;
 
@@ -1338,7 +1662,7 @@
                 const escapedCode = escapeHtml(code);
                 return '<code style="background-color:#f8f9fa;padding:2px 6px;border:1px solid #dee2e6;border-radius:4px;font-family:\'Consolas\',monospace;font-size:0.9em;">' + escapedCode + '</code>'
             };
-            const html = marked.parse(markdown, { renderer: renderer });
+            const html = marked.parse(markdown, {renderer: renderer});
             container.innerHTML = html;
             
             if (typeof hljs !== 'undefined') {
@@ -1357,6 +1681,39 @@
                     throwOnError: false
                 });
             }
+            setTimeout(() => {
+                container.querySelectorAll('pre').forEach((pre) => {
+                    // 检查是否已经有复制按钮
+                    if (pre.querySelector('button')) return;
+                    
+                    // 给 pre 添加相对定位
+                    pre.style.position = 'relative';
+                    
+                    // 创建复制按钮
+                    const button = document.createElement('button');
+                    button.innerHTML = '<i class="fas fa-copy"></i>';
+                    button.style.cssText = 'position:absolute;top:8px;right:8px;background:#fafafa;border:none;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;line-height:0;height:24px;box-sizing:border-box;transition:all 0.2s ease;opacity:0;color:#555;';
+                    button.onmouseover = function() { this.style.opacity = '1'; this.style.background = '#ddd'; };
+                    button.onmouseout = function() { this.style.opacity = '0'; this.style.background = '#fafafa'; };
+                    button.onclick = function() {
+                        const code = pre.querySelector('code');
+                        const codeText = code ? (code.textContent || code.innerText) : pre.textContent;
+                        
+                        navigator.clipboard.writeText(codeText).then(() => {
+                            const originalHTML = this.innerHTML;
+                            this.innerHTML = '<i class="fas fa-check"></i>';
+                            setTimeout(() => {
+                                this.innerHTML = originalHTML;
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('复制失败:', err);
+                            alert('复制失败，请手动复制');
+                        });
+                    };
+                    
+                    pre.appendChild(button);
+                });
+            }, 200);
         }
 
         function loadScript(src, callback) {
