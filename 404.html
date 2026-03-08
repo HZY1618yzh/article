@@ -621,9 +621,7 @@
             outline: none;
             border-color: #3498db;
         }
-        /* ========== Amazing Luogu 扩展样式 ========== */
 
-        /* 对齐样式 */
         .align-left {
             text-align: left !important
         }
@@ -636,7 +634,6 @@
             text-align: right !important
         }
 
-        /* 题词样式 */
         .epigraph {
             width: 40%;
             margin-left: 60%;
@@ -658,7 +655,6 @@
             color: #6c757d;
         }
 
-        /* 折叠块增强样式 */
         .foldable {
             padding: 0;
             margin: 1.5em 0;
@@ -717,7 +713,6 @@
             color: rgb(155, 89, 182)
         }
 
-        /* 折叠块图标样式 */
         .foldable summary {
             list-style: none;
             -webkit-user-select: none;
@@ -744,7 +739,6 @@
             display: none;
         }
 
-        /* 折叠块图标 - 左侧图标 */
         .foldable summary::before {
             content: "";
             background-color: currentcolor;
@@ -792,7 +786,6 @@
             mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M288 0L160 0 128 0C110.3 0 96 14.3 96 32s14.3 32 32 32l0 132.8c0 11.8-3.3 23.5-9.5 33.5L10.3 406.2C3.6 417.2 0 429.7 0 442.6C0 480.9 31.1 512 69.4 512l309.2 0c38.3 0 69.4-31.1 69.4-69.4c0-12.8-3.6-25.4-10.3-36.4L329.5 230.4c-6.2-10.1-9.5-21.7-9.5-33.5L320 64c17.7 0 32-14.3 32-32s-14.3-32-32-32L288 0zM192 196.8L192 64l64 0 0 132.8c0 23.7 6.6 46.9 19 67.1L309.5 320l-171 0L173 263.9c12.4-20.2 19-43.4 19-67.1z"/></svg>')
         }
 
-        /* 展开/折叠箭头 */
         .foldable summary::after {
             content: "";
             background-color: currentcolor;
@@ -816,7 +809,6 @@
             transform: translateY(-50%) rotate(90deg);
         }
 
-        /* 暗色模式支持 */
         @media (prefers-color-scheme: dark) {
             .epigraph {
                 background: #2d2d2d;
@@ -1683,13 +1675,8 @@
             }
             setTimeout(() => {
                 container.querySelectorAll('pre').forEach((pre) => {
-                    // 检查是否已经有复制按钮
                     if (pre.querySelector('button')) return;
-                    
-                    // 给 pre 添加相对定位
                     pre.style.position = 'relative';
-                    
-                    // 创建复制按钮
                     const button = document.createElement('button');
                     button.innerHTML = '<i class="fas fa-copy"></i>';
                     button.style.cssText = 'position:absolute;top:8px;right:8px;background:#fafafa;border:none;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;line-height:0;height:24px;box-sizing:border-box;transition:all 0.2s ease;opacity:0;color:#555;';
