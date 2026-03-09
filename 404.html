@@ -1651,8 +1651,7 @@
                 return '<pre style="position:relative;background:#fafafa;border:1px solid #ddd;padding:16px;margin:16px 0;border-radius:6px;overflow-x:auto;font-family:\'Courier New\',monospace;" onmouseover="const btn=this.querySelector(\'button\');btn.style.opacity=\'1\'" onmouseout="const btn=this.querySelector(\'button\');btn.style.opacity=\'0\'"><button style="position:absolute;top:8px;right:8px;background:#fafafa;border:none;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;line-height:0;height:24px;box-sizing:border-box;transition:all 0.2s ease;opacity:0;color:#555;" onmouseover="this.style.background=\'#ddd\';this.style.color=\'#555\';"onmouseout="this.style.background=\'#fafafa\';this.style.color=\'#555\';"onclick="const code=this.parentElement.querySelector(\'code\').textContent;const textarea=document.createElement(\'textarea\');textarea.value=code;document.body.appendChild(textarea);textarea.select();document.execCommand(\'copy\');document.body.removeChild(textarea);this.innerHTML=\'<i class=&quot;fas fa-check&quot;></i>\';setTimeout(()=>{this.innerHTML=\'<i class=&quot;fas fa-copy&quot;></i>\'},2000)"><i class="fas fa-copy"></i></button><code class="' + languageClass + '" style="display:block;padding-right:50px;">'+escapedCode+'</code></pre>';
             };
             renderer.codespan = function (code, language) {
-                const escapedCode = escapeHtml(code);
-                return '<code style="background-color:#f8f9fa;padding:2px 6px;border:1px solid #dee2e6;border-radius:4px;font-family:\'Consolas\',monospace;font-size:0.9em;">' + escapedCode + '</code>'
+                return '<code style="background-color:#f8f9fa;padding:2px 6px;border:1px solid #dee2e6;border-radius:4px;font-family:\'Consolas\',monospace;font-size:0.9em;">' + code + '</code>'
             };
             const html = marked.parse(markdown, {renderer: renderer});
             container.innerHTML = html;
