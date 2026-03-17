@@ -1200,7 +1200,7 @@
                                     ${tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
                                 </div>
                             ` : ''}
-                            <div class="article-content-preview">${truncateMarkdown(article.md || '无内容')}</div>
+                            <div class="article-content-preview">${escapeHtml(truncateMarkdown(article.md || '无内容'))}</div>
                             <div class="action-buttons">
                                 <button class="btn btn-primary" onclick="router.navigate('/article/${article.id}')">
                                     <i class="fas fa-eye"></i> 阅读
